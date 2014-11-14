@@ -12,7 +12,7 @@
         <servlet-name>guestbook</servlet-name>
         <url-pattern>/guestbook</url-pattern>
     </servlet-mapping>
-<welcome-file-list>
+    <welcome-file-list>
         <welcome-file>guestbook.jsp</welcome-file>
     </welcome-file-list>
 </web-app>
