@@ -37,7 +37,7 @@
 <p>Hello, ${fn:escapeXml(user.nickname)}! (You can
     <a href="<%= userService.createLogoutURL(request.getRequestURI()) %>">sign out</a>.)</p>
 <%
-} else {
+    } else {
 %>
 <p>Hello!
     <a href="<%= userService.createLoginURL(request.getRequestURI()) %>">Sign in</a>
@@ -58,25 +58,26 @@
 %>
 <p>Guestbook '${fn:escapeXml(guestbookName)}' has no messages.</p>
 <%
-} else {
+    } else {
 %>
 <p>Messages in Guestbook '${fn:escapeXml(guestbookName)}'.</p>
 <%
-    for (Entity greeting : greetings) {
-        pageContext.setAttribute("greeting_content",
-                greeting.getProperty("content"));
-        if (greeting.getProperty("user") == null) {
+        for (Entity greeting : greetings) {
+            pageContext.setAttribute("greeting_content",
+                    greeting.getProperty("content"));
+            String author;
+            if (greeting.getProperty("author_email") == null) {
+                author = "An anonymous person";
+            } else {
+                author = (String)greeting.getProperty("author_email");
+                String author_id = (String)greeting.getProperty("author_id");
+                if (user != null && user.getUserId().equals(author_id)) {
+                    author += " (You)";
+                }
+            }
+            pageContext.setAttribute("greeting_user", author);
 %>
-<p>An anonymous person wrote:</p>
-<%
-} else {
-    pageContext.setAttribute("greeting_user",
-            greeting.getProperty("user"));
-%>
-<p><b>${fn:escapeXml(greeting_user.nickname)}</b> wrote:</p>
-<%
-    }
-%>
+<p><b>${fn:escapeXml(greeting_user)}</b> wrote:</p>
 <blockquote>${fn:escapeXml(greeting_content)}</blockquote>
 <%
         }

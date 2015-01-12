@@ -43,7 +43,7 @@ public class GuestbookServlet extends HttpServlet {
 
       if (currentUser != null) {
         resp.setContentType("text/plain");
-        resp.getWriter().println("Hello, " + currentUser.getNickname());
+        resp.getWriter().println("Hello, " + currentUser.getEmail());
       } else {
         resp.sendRedirect(userService.createLoginURL(req.getRequestURI()));
       }
