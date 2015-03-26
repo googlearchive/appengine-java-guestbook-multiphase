@@ -3,15 +3,14 @@
 <%@ page import="com.google.appengine.api.users.User" %>
 <%@ page import="com.google.appengine.api.users.UserService" %>
 <%@ page import="com.google.appengine.api.users.UserServiceFactory" %>
+
 <%-- //[START imports]--%>
-<%@ page import="com.google.appengine.api.datastore.DatastoreService" %>
-<%@ page import="com.google.appengine.api.datastore.DatastoreServiceFactory" %>
-<%@ page import="com.google.appengine.api.datastore.Entity" %>
-<%@ page import="com.google.appengine.api.datastore.FetchOptions" %>
-<%@ page import="com.google.appengine.api.datastore.Key" %>
-<%@ page import="com.google.appengine.api.datastore.KeyFactory" %>
-<%@ page import="com.google.appengine.api.datastore.Query" %>
+<%@ page import="com.example.guestbook.Greeting" %>
+<%@ page import="com.example.guestbook.Guestbook" %>
+<%@ page import="com.googlecode.objectify.Key" %>
+<%@ page import="com.googlecode.objectify.ObjectifyService" %>
 <%-- //[END imports]--%>
+
 <%@ page import="java.util.List" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
@@ -48,12 +47,18 @@
 
 <%-- //[START datastore]--%>
 <%
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    Key guestbookKey = KeyFactory.createKey("Guestbook", guestbookName);
+      Key<Guestbook> theBook = Key.create(Guestbook.class, guestbookName);
+
     // Run an ancestor query to ensure we see the most up-to-date
     // view of the Greetings belonging to the selected Guestbook.
-    Query query = new Query("Greeting", guestbookKey).addSort("date", Query.SortDirection.DESCENDING);
-    List<Entity> greetings = datastore.prepare(query).asList(FetchOptions.Builder.withLimit(5));
+      List<Greeting> greetings = ObjectifyService.ofy()
+          .load()
+          .type(Greeting.class)
+          .ancestor(theBook)
+          .order("-date")
+          .limit(5)     // Only have 5 of them.
+          .list();
+
     if (greetings.isEmpty()) {
 %>
 <p>Guestbook '${fn:escapeXml(guestbookName)}' has no messages.</p>
@@ -62,15 +67,14 @@
 %>
 <p>Messages in Guestbook '${fn:escapeXml(guestbookName)}'.</p>
 <%
-        for (Entity greeting : greetings) {
-            pageContext.setAttribute("greeting_content",
-                    greeting.getProperty("content"));
+        for (Greeting greeting : greetings) {
+            pageContext.setAttribute("greeting_content", greeting.content);
             String author;
-            if (greeting.getProperty("author_email") == null) {
+            if (greeting.author_email == null) {
                 author = "An anonymous person";
             } else {
-                author = (String)greeting.getProperty("author_email");
-                String author_id = (String)greeting.getProperty("author_id");
+                author = greeting.author_email;
+                String author_id = greeting.author_id;
                 if (user != null && user.getUserId().equals(author_id)) {
                     author += " (You)";
                 }

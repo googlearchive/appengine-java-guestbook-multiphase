@@ -1,5 +1,5 @@
 /**
- * Copyright 2014 Google Inc. All Rights Reserved.
+ * Copyright 2014-2015 Google Inc. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,27 +32,26 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import static com.googlecode.objectify.ObjectifyService.ofy;
+
 public class SignGuestbookServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws IOException {
+    Greeting greeting;
+
     UserService userService = UserServiceFactory.getUserService();
     User user = userService.getCurrentUser();
 
     String guestbookName = req.getParameter("guestbookName");
-    Key guestbookKey = KeyFactory.createKey("Guestbook", guestbookName);
     String content = req.getParameter("content");
-    Date date = new Date();
-    Entity greeting = new Entity("Greeting", guestbookKey);
     if (user != null) {
-      greeting.setProperty("author_id", user.getUserId());
-      greeting.setProperty("author_email", user.getEmail());
+      greeting = new Greeting(guestbookName, content, user.getUserId(), user.getEmail());
+    } else {
+      greeting = new Greeting(guestbookName, content);
     }
-    greeting.setProperty("date", date);
-    greeting.setProperty("content", content);
 
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    datastore.put(greeting);
+    ofy().save().entity(greeting).now();
 
     resp.sendRedirect("/guestbook.jsp?guestbookName=" + guestbookName);
   }
