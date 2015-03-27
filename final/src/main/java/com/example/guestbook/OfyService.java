@@ -22,8 +22,9 @@ import com.googlecode.objectify.ObjectifyService;
 
 // [START objectify_init]
 /**
- * Objectify service wrapper so we can statically register our persistence classes
- * More on Objectify here : https://code.google.com/p/objectify-appengine/
+ * We have the OfyService so we can statically register our classes with Objectify - this is
+ * required for normal classes to get initialized.
+ *
  *
  */
 public class OfyService {
@@ -34,8 +35,7 @@ public class OfyService {
     ObjectifyService.register(Greeting.class);
   }
 
-  // Provide a private way for our app to access this, makes sure this class
-  // gets loaded.
+  // Provide a private way for our app to access this, makes sure this class gets loaded.
   public static Objectify ofy() {
     return ObjectifyService.ofy();
   }

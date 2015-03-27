@@ -21,7 +21,7 @@
     <welcome-file-list>
         <welcome-file>guestbook.jsp</welcome-file>
     </welcome-file-list>
-<!-- [START Objectify_Filters] -->
+<!-- [START Objectify] -->
     <filter>
       <filter-name>ObjectifyFilter</filter-name>
       <filter-class>com.googlecode.objectify.ObjectifyFilter</filter-class>
@@ -33,6 +33,5 @@
     <listener>
       <listener-class>com.example.guestbook.OfyHelper</listener-class>
     </listener>
-
-<!-- [END Objectify_Filters] -->
+<!-- [END Objectify] -->
 </web-app>

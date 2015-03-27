@@ -47,16 +47,17 @@
 
 <%-- //[START datastore]--%>
 <%
+    // Create the correct Ancestor key
       Key<Guestbook> theBook = Key.create(Guestbook.class, guestbookName);
 
     // Run an ancestor query to ensure we see the most up-to-date
     // view of the Greetings belonging to the selected Guestbook.
       List<Greeting> greetings = ObjectifyService.ofy()
           .load()
-          .type(Greeting.class)
-          .ancestor(theBook)
-          .order("-date")
-          .limit(5)     // Only have 5 of them.
+          .type(Greeting.class) // We want only Greetings
+          .ancestor(theBook)    // Anyone in this book
+          .order("-date")       // Most recent first - date is indexed.
+          .limit(5)             // Only show 5 of them.
           .list();
 
     if (greetings.isEmpty()) {
@@ -67,6 +68,7 @@
 %>
 <p>Messages in Guestbook '${fn:escapeXml(guestbookName)}'.</p>
 <%
+      // Look at all of our greetings
         for (Greeting greeting : greetings) {
             pageContext.setAttribute("greeting_content", greeting.content);
             String author;

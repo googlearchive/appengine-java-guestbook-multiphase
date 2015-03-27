@@ -36,8 +36,7 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 
 public class SignGuestbookServlet extends HttpServlet {
   @Override
-  public void doPost(HttpServletRequest req, HttpServletResponse resp)
-      throws IOException {
+  public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
     Greeting greeting;
 
     UserService userService = UserServiceFactory.getUserService();
@@ -51,6 +50,8 @@ public class SignGuestbookServlet extends HttpServlet {
       greeting = new Greeting(guestbookName, content);
     }
 
+    // Use Objectify to save the greeting and now() is used to make the call synchronously as we
+    // will immediately get a new page using redirect and we want the data to be present.
     ofy().save().entity(greeting).now();
 
     resp.sendRedirect("/guestbook.jsp?guestbookName=" + guestbookName);

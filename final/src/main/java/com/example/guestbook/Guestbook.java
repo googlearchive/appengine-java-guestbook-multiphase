@@ -21,17 +21,9 @@ import com.googlecode.objectify.annotation.Id;
 
 /**
  * The @Entity tells Objectify about our entity.  We also register it in
- * OfyService.java -- very important. Our primary key @Id is set automatically
- * by Objectify for us.  We also don't want Date's indexed, so we use the
- * @Unindex annotation.
+ * OfyService.java and OfyHelper -- very important.
  *
- * We add a @Parent to tell the object about its @ancestor.  We are doing this
- * so that you can learn about Ancestor keys, which make it faster to access
- * these entities as they are located in Datastore near the Ancestor, as opposed
- * to the prior version where the entities could, in a large system, be anywhere.
- *
- * NOTE - all the properties are PUBLIC so that can keep this simple, otherwise,
- * Jackson, wants us to write a BeanSerializaer for cloud endpoints.
+ * This is never actually created, but gives a hint to Objectify about our Ancestor key.
  */
 @Entity
 public class Guestbook {

@@ -28,18 +28,17 @@ import java.util.List;
 
 /**
  * The @Entity tells Objectify about our entity.  We also register it in
- * OfyService.java -- very important. Our primary key @Id is set automatically
- * by Objectify for us.  We also don't want Date's indexed, so we use the
- * @Unindex annotation.
+ * OfyService.java and OfyHelper.java -- very important. Our primary key @Id is set automatically
+ * by Objectify for us.
  *
- * We add a @Parent to tell the object about its @ancestor.  We are doing this
- * so that you can learn about Ancestor keys, which make it faster to access
- * these entities as they are located in Datastore near the Ancestor, as opposed
- * to the prior version where the entities could, in a large system, be anywhere.
+ * We add a @Parent to tell the object about its @ancestor. We are doing this to support many
+ * guestbooks.  Objectify, unlike the AppEngine library requires that you specify the fields you
+ * want to index using @Index.  This is often a huge win in performance -- though if you don't Index
+ * your data from the start, you'll have to go back and index it later.
  *
  * NOTE - all the properties are PUBLIC so that can keep this simple, otherwise,
  * Jackson, wants us to write a BeanSerializaer for cloud endpoints.
- */
+ **/
 @Entity
 public class Greeting {
   @Parent Key<Guestbook> theBook;
@@ -50,20 +49,29 @@ public class Greeting {
   public String content;
   @Index public Date date;
 
+  /**
+   * Simple constructor just sets the date
+   **/
   public Greeting() {
     date = new Date();
   }
 
+  /**
+   * A connivence constructor
+   **/
   public Greeting(String book, String content) {
     this();
     if( book != null ) {
-      theBook = Key.create(Guestbook.class, book);
+      theBook = Key.create(Guestbook.class, book);  // Creating the Ancestor key
     } else {
       theBook = Key.create(Guestbook.class, "default");
     }
     this.content = content;
   }
 
+  /**
+   * Takes all important fields
+   **/
   public Greeting(String book, String content, String id, String email) {
     this(book, content);
     author_email = email;
