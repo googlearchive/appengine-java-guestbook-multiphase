@@ -27,11 +27,10 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * The @Entity tells Objectify about our entity.  We also register it in
- * OfyService.java and OfyHelper.java -- very important. Our primary key @Id is set automatically
- * by Objectify for us.
+ * The @Entity tells Objectify about our entity.  We also register it in OfyHelper.java -- very
+ * important. Our primary key @Id is set automatically by the Google Datastore for us.
  *
- * We add a @Parent to tell the object about its @ancestor. We are doing this to support many
+ * We add a @Parent to tell the object about its ancestor. We are doing this to support many
  * guestbooks.  Objectify, unlike the AppEngine library requires that you specify the fields you
  * want to index using @Index.  This is often a huge win in performance -- though if you don't Index
  * your data from the start, you'll have to go back and index it later.

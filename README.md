@@ -14,12 +14,11 @@ Please ask questions on [Stackoverflow](http://stackoverflow.com/questions/tagge
 How do I, as a developer, start working on the project?
 
 1. cd final  (or phase1)
-1. `mvn install appengine:devserver`
-1. What dependencies does it have (where are they expressed) and how do I install them?
-1. Can I see the project working before I change anything?
+1. `mvn clean appengine:devserver`
 
 <!---
-## Testing
+1. What dependencies does it have (where are they expressed) and how do I install them?
+1. Can I see the project working before I change anything?
 
 How do I run the project's automated tests?
 

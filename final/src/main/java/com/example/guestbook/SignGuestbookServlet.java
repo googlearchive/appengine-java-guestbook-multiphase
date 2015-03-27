@@ -32,7 +32,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static com.googlecode.objectify.ObjectifyService.ofy;
+import com.googlecode.objectify.ObjectifyService;
 
 public class SignGuestbookServlet extends HttpServlet {
   @Override
@@ -52,7 +52,7 @@ public class SignGuestbookServlet extends HttpServlet {
 
     // Use Objectify to save the greeting and now() is used to make the call synchronously as we
     // will immediately get a new page using redirect and we want the data to be present.
-    ofy().save().entity(greeting).now();
+    ObjectifyService.ofy().save().entity(greeting).now();
 
     resp.sendRedirect("/guestbook.jsp?guestbookName=" + guestbookName);
   }
