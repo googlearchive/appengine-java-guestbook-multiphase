@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+//[START all]
 package com.example.guestbook;
 
 import com.googlecode.objectify.Objectify;
@@ -29,8 +29,8 @@ import javax.servlet.ServletContextEvent;
  **/
 public class OfyHelper implements ServletContextListener {
   public void contextInitialized(ServletContextEvent event) {
-    // This will be invoked as part of a warmup request, or the first user
-    // request if no warmup request was invoked.
+    // This will be invoked as part of a warmup request, or the first user request if no warmup
+    // request.
     ObjectifyService.register(Guestbook.class);
     ObjectifyService.register(Greeting.class);
   }
@@ -39,3 +39,4 @@ public class OfyHelper implements ServletContextListener {
     // App Engine does not currently invoke this method.
   }
 }
+//[END all]

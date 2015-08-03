@@ -10,7 +10,7 @@
 
     <properties>
         <appengine.app.version>1</appengine.app.version>
-        <appengine.version>1.9.20</appengine.version>
+        <appengine.version>1.9.24</appengine.version>
 
         <objectify.version>5.1.5</objectify.version>
         <guava.version>18.0</guava.version>

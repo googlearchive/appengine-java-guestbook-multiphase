@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+//[START all]
 package com.example.guestbook;
 
 import com.googlecode.objectify.annotation.Entity;
@@ -29,3 +30,4 @@ import com.googlecode.objectify.annotation.Id;
 public class Guestbook {
   @Id public String book;
 }
+//[END all]
