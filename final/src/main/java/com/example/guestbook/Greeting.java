@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+//[START all]
 package com.example.guestbook;
 
 import com.googlecode.objectify.annotation.Entity;
@@ -35,8 +36,7 @@ import java.util.List;
  * want to index using @Index.  This is often a huge win in performance -- though if you don't Index
  * your data from the start, you'll have to go back and index it later.
  *
- * NOTE - all the properties are PUBLIC so that can keep this simple, otherwise,
- * Jackson, wants us to write a BeanSerializaer for cloud endpoints.
+ * NOTE - all the properties are PUBLIC so that can keep the code simple.
  **/
 @Entity
 public class Greeting {
@@ -78,3 +78,4 @@ public class Greeting {
   }
 
 }
+//[END all]

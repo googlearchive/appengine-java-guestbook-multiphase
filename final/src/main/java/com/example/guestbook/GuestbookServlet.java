@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 //[START all]
 package com.example.guestbook;
 
@@ -31,22 +32,14 @@ public class GuestbookServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws IOException {
-    if (req.getParameter("testing") == null) {
+    UserService userService = UserServiceFactory.getUserService();
+    User currentUser = userService.getCurrentUser();
+
+    if (currentUser != null) {
       resp.setContentType("text/plain");
-      resp.getWriter().println("Hello, this is a testing servlet. \n\n");
-      Properties p = System.getProperties();
-      p.list(resp.getWriter());
-
+      resp.getWriter().println("Hello, " + currentUser.getEmail());
     } else {
-      UserService userService = UserServiceFactory.getUserService();
-      User currentUser = userService.getCurrentUser();
-
-      if (currentUser != null) {
-        resp.setContentType("text/plain");
-        resp.getWriter().println("Hello, " + currentUser.getEmail());
-      } else {
-        resp.sendRedirect(userService.createLoginURL(req.getRequestURI()));
-      }
+      resp.sendRedirect(userService.createLoginURL(req.getRequestURI()));
     }
   }
 }
