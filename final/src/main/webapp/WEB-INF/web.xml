@@ -3,6 +3,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
+<!-- [START standard_mappings] -->
     <servlet>
       <servlet-name>sign</servlet-name>
       <servlet-class>com.example.guestbook.SignGuestbookServlet</servlet-class>
@@ -16,6 +17,7 @@
     <welcome-file-list>
         <welcome-file>guestbook.jsp</welcome-file>
     </welcome-file-list>
+<!-- [END standard_mappings] -->
 
 <!-- [START Objectify] -->
     <filter>
