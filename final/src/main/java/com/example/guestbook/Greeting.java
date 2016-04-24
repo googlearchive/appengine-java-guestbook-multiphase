@@ -36,7 +36,7 @@ import java.util.List;
  * want to index using @Index.  Only indexing the fields you need can lead to substantial gains in
  * performance -- though if not indexing your data from the start will require indexing it later.
  *
- * NOTE - all the properties are PUBLIC so that can keep the code simple.
+ * NOTE - all the properties are PUBLIC so that we can keep the code simple.
  **/
 @Entity
 public class Greeting {
