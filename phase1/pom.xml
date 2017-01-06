@@ -10,7 +10,7 @@
 
     <properties>
         <appengine.app.version>1</appengine.app.version>
-        <appengine.sdk.version>1.9.24</appengine.sdk.version>
+        <appengine.sdk.version>1.9.48</appengine.sdk.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 

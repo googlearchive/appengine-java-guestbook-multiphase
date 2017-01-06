@@ -7,11 +7,11 @@
 
     <groupId>com.example.guestbook</groupId>
     <artifactId>guestbook</artifactId>
-    
+
 <!-- [START set_versions] -->
     <properties>
         <appengine.app.version>1</appengine.app.version>
-        <appengine.sdk.version>1.9.24</appengine.sdk.version>
+        <appengine.sdk.version>1.9.48</appengine.sdk.version>
 
         <objectify.version>5.1.5</objectify.version>
         <guava.version>18.0</guava.version>
