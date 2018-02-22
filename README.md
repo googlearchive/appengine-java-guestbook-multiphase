@@ -1,3 +1,9 @@
+![status: inactive](https://img.shields.io/badge/status-inactive-red.svg)
+
+This project is no longer actively developed or maintained.
+
+For new work on this check out [java-docs-samples](https://github.com/GoogleCloudPlatform/java-docs-samples) and [getting-started-java](https://github.com/GoogleCloudPlatform/getting-started-java).
+
 ## appengine-java-guestbook-multiphase
 
 Goes through the process of creating an App Engine guestbook using Java and Maven in phases.
